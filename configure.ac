@@ -495,6 +495,7 @@ exe="$ac_exeext"
 libprefix="lib"
 link_whole_archive="0"
 DSO_LDFLAGS='-shared -Wl,-soname,$(@F)'
+DSO_CFLAGS=$CFLAGS
 RPATH='-Wl,-rpath,$(1)'
 SOREV="${so}.${rev}"
 PIC_CFLAGS='-fPIC -DPIC'
@@ -697,6 +698,7 @@ AC_SUBST([exe])
 AC_SUBST([libprefix])
 AC_SUBST([link_whole_archive])
 AC_SUBST([DSO_LDFLAGS])
+AC_SUBST([DSO_CFLAGS])
 AC_SUBST([EXTRA_LDFLAGS])
 AC_SUBST([SOREV])
 AC_SUBST([PIC_CFLAGS])
@@ -2244,6 +2246,7 @@ AC_MSG_RESULT([EXTRA_CXXFLAGS     : ${EXTRA_CXXFLAGS}])
 AC_MSG_RESULT([LDFLAGS            : ${LDFLAGS}])
 AC_MSG_RESULT([EXTRA_LDFLAGS      : ${EXTRA_LDFLAGS}])
 AC_MSG_RESULT([DSO_LDFLAGS        : ${DSO_LDFLAGS}])
+AC_MSG_RESULT([DSO_CFLAGS         : ${DSO_CFLAGS}])
 AC_MSG_RESULT([LIBS               : ${LIBS}])
 AC_MSG_RESULT([RPATH_EXTRA        : ${RPATH_EXTRA}])
 AC_MSG_RESULT([])
