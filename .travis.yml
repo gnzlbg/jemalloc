@@ -16,13 +16,13 @@ matrix:
           packages:
             - gcc-multilib
     - os: linux
-      env: CC=gcc CXX=g++ COMPILER_FLAGS="-m32" CONFIGURE_FLAGS="--host=i586-unknown-linux-gnu" EXTRA_CFLAGS="-Werror -Wno-array-bounds"
+      env: CC=gcc CXX=g++ COMPILER_FLAGS="-m32 -march=pentium -ffunction-sections -fdata-sections -fPIC " CONFIGURE_FLAGS="--host=i586-unknown-linux-gnu" EXTRA_CFLAGS="-Werror -Wno-array-bounds"
       addons:
         apt:
           packages:
             - gcc-multilib
     - os: linux
-      env: CC=gcc CXX=g++ COMPILER_FLAGS="-m32" CONFIGURE_FLAGS="--host=i686-unknown-linux-gnu" EXTRA_CFLAGS="-Werror -Wno-array-bounds"
+      env: CC=gcc CXX=g++ COMPILER_FLAGS="-m32 -march=i686 -ffunction-sections -fdata-sections -fPIC " CONFIGURE_FLAGS="--host=i686-unknown-linux-gnu" EXTRA_CFLAGS="-Werror -Wno-array-bounds"
       addons:
         apt:
           packages:
