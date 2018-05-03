@@ -15,21 +15,6 @@ matrix:
         apt:
           packages:
             - gcc-multilib
-    - os: linux
-      dist: trusty
-      env: CC=gcc CXX=g++ COMPILER_FLAGS="-m32 -march=pentium -ffunction-sections -fdata-sections -fPIC " CONFIGURE_FLAGS="--host=i586-unknown-linux-gnu" EXTRA_CFLAGS="-Werror -Wno-array-bounds"
-      addons:
-        apt:
-          packages:
-            - gcc-multilib
-    - os: linux
-      dist: trusty
-      env: CC=gcc CXX=g++ COMPILER_FLAGS="-m32 -march=i686 -ffunction-sections -fdata-sections -fPIC " CONFIGURE_FLAGS="--host=i686-unknown-linux-gnu" EXTRA_CFLAGS="-Werror -Wno-array-bounds"
-      addons:
-        apt:
-          packages:
-            - gcc-multilib
-
 #    - os: linux
 #      env: CC=gcc CXX=g++ COMPILER_FLAGS="" CONFIGURE_FLAGS="--enable-debug" EXTRA_CFLAGS="-Werror -Wno-array-bounds"
 #    - os: linux
