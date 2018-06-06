@@ -1557,13 +1557,6 @@ background_thread_ctl(tsd_t *tsd, const size_t *mib,
 
 		background_thread_enabled_set(tsd_tsdn(tsd), newval);
 		if (newval) {
-			if (!can_enable_background_thread) {
-				malloc_printf("<jemalloc>: Error in dlsym("
-			            "RTLD_NEXT, \"pthread_create\"). Cannot "
-				    "enable background_thread\n");
-				ret = EFAULT;
-				goto label_return;
-			}
 			if (background_threads_enable(tsd)) {
 				ret = EFAULT;
 				goto label_return;
@@ -1619,13 +1612,6 @@ max_background_threads_ctl(tsd_t *tsd, const size_t *mib,
 		}
 
 		if (background_thread_enabled()) {
-			if (!can_enable_background_thread) {
-				malloc_printf("<jemalloc>: Error in dlsym("
-			            "RTLD_NEXT, \"pthread_create\"). Cannot "
-				    "enable background_thread\n");
-				ret = EFAULT;
-				goto label_return;
-			}
 			background_thread_enabled_set(tsd_tsdn(tsd), false);
 			if (background_threads_disable(tsd)) {
 				ret = EFAULT;
