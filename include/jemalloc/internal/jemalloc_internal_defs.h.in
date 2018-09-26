@@ -153,7 +153,7 @@
 /* JEMALLOC_STATS enables statistics calculation. */
 #undef JEMALLOC_STATS
 
-/* JEMALLOC_STATS enables experimental smallocx API. */
+/* JEMALLOC_EXPERIMENTAL_SMALLOCX_API enables experimental smallocx API. */
 #undef JEMALLOC_EXPERIMENTAL_SMALLOCX_API
 
 /* JEMALLOC_PROF enables allocation profiling. */
