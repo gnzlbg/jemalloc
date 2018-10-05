@@ -1,11 +1,25 @@
 #include "test/jemalloc_test.h"
+#include "jemalloc/jemalloc_macros.h"
+
+#define STR_HELPER(x) #x
+#define STR(x) STR_HELPER(x)
+
+#ifndef JEMALLOC_VERSION_GID_IDENT
+  #error "JEMALLOC_VERSION_GID_IDENT not defined"
+#endif
+
+
+#define JOIN(x, y) x ## y
+#define JOIN2(x, y) JOIN(x, y)
+#define smallocx JOIN2(smallocx_, JEMALLOC_VERSION_GID_IDENT)
 
 typedef struct {
 	void *ptr;
 	size_t size;
 } smallocx_return_t;
 
-extern smallocx_return_t smallocx(size_t size, int flags);
+extern smallocx_return_t
+smallocx(size_t size, int flags);
 
 static unsigned
 get_nsizes_impl(const char *cmd) {
