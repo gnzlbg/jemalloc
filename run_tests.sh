@@ -1,1 +1,3 @@
-$(dirname "$)")/scripts/gen_run_tests.py | bash
+#!/bin/sh
+
+"$(dirname "$)")"/scripts/gen_run_tests.py | bash

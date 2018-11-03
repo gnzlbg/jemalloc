@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# shellcheck disable=SC2154
 if [ "x${enable_prof}" = "x1" ] ; then
   export MALLOC_CONF="prof:true,lg_prof_sample:0"
 fi

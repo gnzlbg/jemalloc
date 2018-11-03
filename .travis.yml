@@ -134,6 +134,16 @@ matrix:
           packages:
             - valgrind
 
+    # Shellcheck
+    - os: linux
+      script:
+        - ./autogen.sh
+        - find . -name '*.sh' -exec shellcheck {} \;
+    - os: osx
+      script:
+        - ./autogen.sh
+        - find . -name '*.sh' -exec shellcheck {} \;
+
 
 before_script:
   - autoconf

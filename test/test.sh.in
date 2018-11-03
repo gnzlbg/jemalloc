@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# shellcheck disable=SC2194
 case @abi@ in
   macho)
     export DYLD_FALLBACK_LIBRARY_PATH="@objroot@lib"
@@ -16,7 +17,7 @@ esac
 export MALLOC_CONF_ALL=${@JEMALLOC_CPREFIX@MALLOC_CONF}
 # Concatenate the individual test's MALLOC_CONF and MALLOC_CONF_ALL.
 export_malloc_conf() {
-  if [ "x${MALLOC_CONF}" != "x" -a "x${MALLOC_CONF_ALL}" != "x" ] ; then
+  if [ "x${MALLOC_CONF}" != "x" ] && [ "x${MALLOC_CONF_ALL}" != "x" ] ; then
     export @JEMALLOC_CPREFIX@MALLOC_CONF="${MALLOC_CONF},${MALLOC_CONF_ALL}"
   else
     export @JEMALLOC_CPREFIX@MALLOC_CONF="${MALLOC_CONF}${MALLOC_CONF_ALL}"
@@ -31,8 +32,8 @@ fail_code=2
 pass_count=0
 skip_count=0
 fail_count=0
-for t in $@; do
-  if [ $pass_count -ne 0 -o $skip_count -ne 0 -o $fail_count != 0 ] ; then
+for t in "${@}"; do
+  if [ $pass_count -ne 0 ] || [ $skip_count -ne 0 ] || [ $fail_count != 0 ] ; then
     echo
   fi
   echo "=== ${t} ==="
@@ -41,15 +42,17 @@ for t in $@; do
     # execute the test.  This allows the shell script to set MALLOC_CONF, which
     # is then used to set @JEMALLOC_CPREFIX@MALLOC_CONF (thus allowing the
     # per test shell script to ignore the @JEMALLOC_CPREFIX@ detail).
+
+    # shellcheck source=/dev/null
     enable_fill=@enable_fill@ \
     enable_prof=@enable_prof@ \
-    . @srcroot@${t}.sh && \
+    . "@srcroot@${t}.sh" && \
     export_malloc_conf && \
-    $JEMALLOC_TEST_PREFIX ${t}@exe@ @abs_srcroot@ @abs_objroot@
+    $JEMALLOC_TEST_PREFIX "${t}@exe@" @abs_srcroot@ @abs_objroot@
   else
     export MALLOC_CONF= && \
     export_malloc_conf && \
-    $JEMALLOC_TEST_PREFIX ${t}@exe@ @abs_srcroot@ @abs_objroot@
+    $JEMALLOC_TEST_PREFIX "${t}@exe@" @abs_srcroot@ @abs_objroot@
   fi
   result_code=$?
   case ${result_code} in
@@ -69,7 +72,7 @@ for t in $@; do
   esac
 done
 
-total_count=`expr ${pass_count} + ${skip_count} + ${fail_count}`
+total_count=$((pass_count + skip_count + fail_count))
 echo
 echo "Test suite summary: pass: ${pass_count}/${total_count}, skip: ${skip_count}/${total_count}, fail: ${fail_count}/${total_count}"
 

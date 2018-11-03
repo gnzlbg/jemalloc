@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# shellcheck disable=SC2154,SC2034
 prefix=@prefix@
 exec_prefix=@exec_prefix@
 libdir=@libdir@

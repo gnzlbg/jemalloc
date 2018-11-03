@@ -1,17 +1,16 @@
 #!/bin/sh
 
-for i in autoconf; do
+for i in $(autoconf); do
     echo "$i"
-    $i
-    if [ $? -ne 0 ]; then
-	echo "Error $? in $i"
-	exit 1
+    if ! $i; then
+	      echo "Error $? in $i"
+	      exit 1
     fi
 done
 
-echo "./configure --enable-autogen $@"
-./configure --enable-autogen $@
-if [ $? -ne 0 ]; then
+echo "./configure --enable-autogen ${*}"
+
+if ! ./configure --enable-autogen "${@}"; then
     echo "Error $? in ./configure"
     exit 1
 fi

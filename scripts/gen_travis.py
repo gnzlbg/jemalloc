@@ -144,4 +144,17 @@ include_rows += '''
 #
 # It currently fails due to: https://github.com/jemalloc/jemalloc/issues/1274
 
+# Shell check build bots
+include_rows += '''
+    # Shellcheck
+    - os: linux
+      script:
+        - ./autogen.sh
+        - find . -name '*.sh' -exec shellcheck {} \;
+    - os: osx
+      script:
+        - ./autogen.sh
+        - find . -name '*.sh' -exec shellcheck {} \;
+'''
+
 print travis_template % include_rows

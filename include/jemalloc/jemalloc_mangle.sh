@@ -17,10 +17,11 @@ cat <<EOF
 #  endif
 EOF
 
-for nm in `cat ${public_symbols_txt}` ; do
-  n=`echo ${nm} |tr ':' ' ' |awk '{print $1}'`
+while read -r nm
+do
+  n=$( echo "${nm}" |tr ':' ' ' |awk '{print $1}' )
   echo "#  define ${n} ${symbol_prefix}${n}"
-done
+done < "${public_symbols_txt}"
 
 cat <<EOF
 #endif
@@ -35,10 +36,12 @@ cat <<EOF
 #ifndef JEMALLOC_NO_DEMANGLE
 EOF
 
-for nm in `cat ${public_symbols_txt}` ; do
-  n=`echo ${nm} |tr ':' ' ' |awk '{print $1}'`
+while read -r nm
+do
+  n=$( echo "${nm}" |tr ':' ' ' |awk '{print $1}' )
   echo "#  undef ${symbol_prefix}${n}"
-done
+done < "${public_symbols_txt}"
+
 
 cat <<EOF
 #endif

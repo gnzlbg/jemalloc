@@ -37,20 +37,20 @@ esac
 
 smooth() {
   step=$1
-  y=`echo ${yprec} k ${step} ${nsteps} / sx _2 lx 3 ^ '*' 3 lx 2 ^ '*' + p | dc | tr -d '\\\\\n' | sed -e 's#^\.#0.#g'`
-  h=`echo ${yprec} k 2 ${bfp} ^ ${y} '*' p | dc | tr -d '\\\\\n' | sed -e 's#^\.#0.#g' | tr '.' ' ' | awk '{print $1}' `
+  y=$( echo "${yprec}" k "${step}" "${nsteps}" / sx _2 lx 3 ^ '*' 3 lx 2 ^ '*' + p | dc | tr -d '\\\\\n' | sed -e 's#^\.#0.#g' )
+  h=$( echo "${yprec}" k 2 "${bfp}" ^ "${y}" '*' p | dc | tr -d '\\\\\n' | sed -e 's#^\.#0.#g' | tr '.' ' ' | awk '{print $1}' )
 }
 
 smoother() {
   step=$1
-  y=`echo ${yprec} k ${step} ${nsteps} / sx 6 lx 5 ^ '*' _15 lx 4 ^ '*' + 10 lx 3 ^ '*' + p | dc | tr -d '\\\\\n' | sed -e 's#^\.#0.#g'`
-  h=`echo ${yprec} k 2 ${bfp} ^ ${y} '*' p | dc | tr -d '\\\\\n' | sed -e 's#^\.#0.#g' | tr '.' ' ' | awk '{print $1}' `
+  y=$( echo "${yprec}" k "${step}" "${nsteps}" / sx 6 lx 5 ^ '*' _15 lx 4 ^ '*' + 10 lx 3 ^ '*' + p | dc | tr -d '\\\\\n' | sed -e 's#^\.#0.#g' )
+  h=$( echo "${yprec}" k 2 "${bfp}" ^ "${y}" '*' p | dc | tr -d '\\\\\n' | sed -e 's#^\.#0.#g' | tr '.' ' ' | awk '{print $1}' )
 }
 
 smoothest() {
   step=$1
-  y=`echo ${yprec} k ${step} ${nsteps} / sx _20 lx 7 ^ '*' 70 lx 6 ^ '*' + _84 lx 5 ^ '*' + 35 lx 4 ^ '*' + p | dc | tr -d '\\\\\n' | sed -e 's#^\.#0.#g'`
-  h=`echo ${yprec} k 2 ${bfp} ^ ${y} '*' p | dc | tr -d '\\\\\n' | sed -e 's#^\.#0.#g' | tr '.' ' ' | awk '{print $1}' `
+  y=$( echo "${yprec}" k "${step}" "${nsteps}" / sx _20 lx 7 ^ '*' 70 lx 6 ^ '*' + _84 lx 5 ^ '*' + 35 lx 4 ^ '*' + p | dc | tr -d '\\\\\n' | sed -e 's#^\.#0.#g' )
+  h=$( echo "${yprec}" k 2 "${bfp}" ^ "${y}" '*' p | dc | tr -d '\\\\\n' | sed -e 's#^\.#0.#g' | tr '.' ' ' | awk '{print $1}' )
 }
 
 cat <<EOF
@@ -87,10 +87,10 @@ cat <<EOF
 EOF
 
 s=1
-while [ $s -le $nsteps ] ; do
+while [ "${s}" -le "${nsteps}" ] ; do
   $variant ${s}
-  x=`echo ${xprec} k ${s} ${nsteps} / p | dc | tr -d '\\\\\n' | sed -e 's#^\.#0.#g'`
-  printf '    STEP(%4d, UINT64_C(0x%016x), %s, %s) \\\n' ${s} ${h} ${x} ${y}
+  x=$( echo "${xprec}" k "${s}" "${nsteps}" / p | dc | tr -d '\\\\\n' | sed -e 's#^\.#0.#g' )
+  printf '    STEP(%4d, UINT64_C(0x%016x), %s, %s) \\\n' "${s}" "${h}" "${x}" "${y}"
 
   s=$((s+1))
 done

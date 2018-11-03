@@ -11,11 +11,12 @@ cat <<EOF
 #ifndef JEMALLOC_NO_RENAME
 EOF
 
-for nm in `cat ${public_symbols_txt}` ; do
-  n=`echo ${nm} |tr ':' ' ' |awk '{print $1}'`
-  m=`echo ${nm} |tr ':' ' ' |awk '{print $2}'`
+while read -r nm
+do
+  n=$( echo "${nm}" |tr ':' ' ' |awk '{print $1}' )
+  m=$( echo "${nm}" |tr ':' ' ' |awk '{print $2}' )
   echo "#  define je_${n} ${m}"
-done
+done < "${public_symbols_txt}"
 
 cat <<EOF
 #endif

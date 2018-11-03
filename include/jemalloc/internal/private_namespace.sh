@@ -1,5 +1,9 @@
 #!/bin/sh
 
-for symbol in `cat "$@"` ; do
-  echo "#define ${symbol} JEMALLOC_N(${symbol})"
+for file in "${@}"
+do
+    while read -r symbol
+    do
+        echo "#define ${symbol} JEMALLOC_N(${symbol})"
+    done < "${file}"
 done
