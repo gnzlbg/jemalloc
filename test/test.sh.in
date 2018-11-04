@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -ex
+echo "JEMALLOC_TEST_PREFIX=${JEMALLOC_TEST_PREFIX}"
 
 # shellcheck disable=SC2194
 case @abi@ in
@@ -57,6 +58,7 @@ for t in "${@}"; do
     $JEMALLOC_TEST_PREFIX "${t}@exe@" @abs_srcroot@ @abs_objroot@
   fi
   result_code=$?
+  echo "here"
   case ${result_code} in
     ${pass_code})
       pass_count=$((pass_count+1))

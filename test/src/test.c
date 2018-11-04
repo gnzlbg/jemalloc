@@ -212,6 +212,7 @@ p_test_no_reentrancy(test_t *t, ...) {
 
 test_status_t
 p_test_no_malloc_init(test_t *t, ...) {
+  malloc_cprintf(NULL, NULL, "HERE!!!!\n");
 	test_status_t ret;
 	va_list ap;
 
