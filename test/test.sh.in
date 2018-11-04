@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -ex
+
 # shellcheck disable=SC2194
 case @abi@ in
   macho)
