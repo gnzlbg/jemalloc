@@ -53,9 +53,12 @@ for t in "${@}"; do
     export_malloc_conf && \
     $JEMALLOC_TEST_PREFIX "${t}@exe@" @abs_srcroot@ @abs_objroot@
   else
-    export MALLOC_CONF= && \
-    export_malloc_conf && \
-    $JEMALLOC_TEST_PREFIX "${t}@exe@" @abs_srcroot@ @abs_objroot@
+    export MALLOC_CONF= # && \
+    export_malloc_conf #&& \
+    #$JEMALLOC_TEST_PREFIX
+    #"${t}@exe@"
+    "${t}"
+    # @abs_srcroot@ @abs_objroot@
   fi
   result_code=$?
   echo "here"
